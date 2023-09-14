@@ -6,12 +6,23 @@ const copy = document.getElementById('copy')
 const z = document.getElementById('z')
 
 let a = 0;
-
+let i = 1;
 btn.addEventListener('click', () => {
-    const li = document.createElement("li")
-    li.innerHTML = inp.value
-    inp.value = ""
-    ull.append(li)
+    if (inp.value.length > 0) {
+        const li = document.createElement("li")
+        li.innerHTML = inp.value
+        li.id = "product"+i
+        const button = document.createElement("button")
+        button.id = i
+        button.innerHTML = "Smazat"
+        button.addEventListener('click', ()=> {
+            li.remove()
+        })
+        i++;
+        inp.value = ""
+        li.append(button)
+        ull.append(li)
+    }
 })
 
 copier.addEventListener('input', () => {
