@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="lol">
+
+    </ul>
+    <script>
+        let tyden = ['pondeli', 'utery', 'streda', 'ctvrtek', 'patek', 'sobota', 'nedele']
+        let a = document.getElementById("lol")
+        
+        for (i = 0; i < tyden.length; i++) {
+            const li = document.createElement("li")
+            li.innerHTML = tyden[i]
+            a.append(li)
+        }
+    </script>
+</body>
+</html>
