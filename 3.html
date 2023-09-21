@@ -10,7 +10,17 @@
 </head>
 <body id="main" style="background-color:red">
     <button id="button">lol</button>
+    <button id="fetch">fetch</button>
     <script>
+        document.getElementById('fetch').addEventListener('click', ()=> {
+            fetch('https://jsonplaceholder.typicode.com/posts/1').then((response) => {
+                console.log('dostal jsem response: ', response)
+            }).catch((err)=>{
+                console.log('skill issue: ', err)
+            })
+            console.log('hotovo.')
+        })
+
         async function sleep(ms) {
             return new Promise((resolve)=>{
                 setTimeout(()=>{
