@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body id="main" style="background-color:red">
-    <button id="button">lol</button>
+    <button id="button" style="background-color: transparent;padding: 10vw 10vh">lol</button>
     <script>
         document.getElementById("button").addEventListener('click', ()=>{
-            document.getElementById('main').style = "background-color:rgb(0, 255, 0);";
+            color = Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)
+            document.getElementById('main').style = "background-color:rgb("+color+");";
         })
     </script>
 </body>
