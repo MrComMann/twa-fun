@@ -30,6 +30,13 @@
         }
 
         document.getElementById("button").addEventListener('click', async ()=>{
+            const myP = myPromise(true);
+            console.log(myP)
+            myP.then((result) => {
+                console.log(result);
+            })
+
+
             color = Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)
             document.getElementById('main').style = "background-color:rgb("+color+");";
             setTimeout(()=>{document.getElementById('main').style = "background-color:green;";}, 10000)
