@@ -66,18 +66,13 @@ Epic twa projects
  'X', 'O'
  ]
  
- let state [
+ let state = [
      0,0,0,
      0,0,0,
      0,0,0
  ]
-  
- tile.addEventListener('click', ()=>{ 
-     tile[0].innerHTML = 'lol'
- }) 
  
  function clickTurn(id) {
-     tile[id-1].innerHTML = 'lol'
      if (state[id-1] == 0) {
         tile[id-1].innerHTML = a[b]
         if (checkWin()) {
