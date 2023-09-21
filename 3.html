@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="main" style="background-color:pink">
+    <button id="button">lol</button>
+    <script>
+        document.getElementById("button").addEventListener('click', ()=>{
+            color = Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)
+            document.getElementById('main').style = "background-color:rgb("+color+");";
+        })
+    </script>
+</body>
+</html>
