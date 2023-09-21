@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+    </style>
 </head>
 <body id="main" style="background-color:red">
-    <button id="button" style="background-color: transparent;padding: 10vw 10vh">lol</button>
+    <button id="button">lol</button>
     <script>
         document.getElementById("button").addEventListener('click', ()=>{
             color = Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)+","+Math.floor(Math.random() * 256)
             document.getElementById('main').style = "background-color:rgb("+color+");";
+            setTimeout(()=>{document.getElementById('main').style = "background-color:green;";}, 10000)
+
+            let i = 0
+            let interval = setInterval(()=>{
+                console.log("lol")
+                i++
+                document.getElementById('button').style = "transform: translateY("+i*24+"px)"
+                if( i == 15) clearInterval(interval)
+            }, 1000)
         })
+        
     </script>
 </body>
 </html>
