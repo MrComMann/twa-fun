@@ -92,8 +92,26 @@ Epic twa projects
 
  }
   
- function checkWin() {
-     return false;
+function checkWin() {
+if (((state[0] != 0) == (state[1] != 0)) == ((state[2] != 0) == (state[1] != 0))) {
+	return true;
+} else if (((state[3] != 0) == (state[4] != 0)) == ((state[5] != 0) == (state[4] != 0))) {
+	return true;
+} else if (((state[6] != 0) == (state[7] != 0)) == ((state[6] != 0) == (state[8] != 0))) {
+	return true;
+} else if (((state[0] != 0) == (state[3] != 0)) == ((state[0] != 0) == (state[6] != 0))) {
+	return true;
+} else if (((state[1] != 0) == (state[4] != 0)) == ((state[1] != 0) == (state[7] != 0))) {
+	return true;
+} else if (((state[2] != 0) == (state[5] != 0)) == ((state[2] != 0) == (state[8] != 0))) {
+	return true;
+} else if (((state[0] != 0) == (state[4] != 0)) == ((state[4] != 0) == (state[8] != 0))) {
+	return true;
+} else if (((state[2] != 0) == (state[4] != 0)) == ((state[4] != 0) == (state[6] != 0))) {
+	return true;
+} else {
+	return false;
+}
  }
      </script> 
  </body> 
