@@ -19,10 +19,12 @@
             })
         }
 
-        async function myPromise(is) {
+        async function myPromise(url) {
             return new Promise((resolve, reject)=>{
-                if (is) {
-                    resolve(true);
+                let downloadedPic;
+                let httpCode = 200;
+                if (httpCode != 404) {
+                    resolve(downloadedPic);
                 } else {
                     reject();
                 }
