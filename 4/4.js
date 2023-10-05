@@ -4,15 +4,14 @@ async function sendRequest(url) {
     return text;
 }
 
-let zak = {
-    name: "František",
-    age: 279,
-    friends: ['Kostlivec 1', 'Kostlivec 2']
-}
-
 document.addEventListener('DOMContentLoaded', async ()=> {
-    const data = await sendRequest('http://kuroedov.lab.uzlabina.cz/twa/api/01_json_list.php');
+    const data = await sendRequest('https://jsonplaceholder.typicode.com/photos');
     const parsed = JSON.parse(data)
+    let a = document.getElementById('pp')
+    parsed.forEach((e)=> {
+        const div = document.createElement("div")
+        div.innerHTML = "<p>"+e.title+"</p><img src='"+e.thumbnailUrl+"'><br><a href='"+e.url+"'>"+e.url+"<a><br><br>"
+        a.append(div)
+    })
     console.log(parsed)
-    document.getElementById('pp').innerText = parsed
 })
