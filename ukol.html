@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="main">
+    <input id="inp" type="text">
+    <p id="msg"></p>
+    <script>
+        let i = 0;
+        const inp = document.getElementById('inp');
+        const msg = document.getElementById('msg');
+        const main = document.getElementById('main');
+
+        async function sleep(ms) {
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    resolve(true)
+                }, ms)
+            })
+        }
+
+        async function myPromise(a) {
+            return new Promise((resolve, reject)=>{
+                if (a == i) {
+                    resolve(true);
+                } else {
+                    reject(false);
+                }
+            })
+        }
+
+        inp.addEventListener('input', async () => {
+            msg.innerHTML = 'Ukládání...';
+            main.style = 'background-color:red';
+            let a = i + 1;
+
+            await sleep(5000)
+            if (a == i) {
+                msg.innerHTML = 'Uloženo';
+                main.style = 'background-color:green';
+            }
+            else {
+                i++;
+            }
+            
+            
+        })
+
+
+    </script>
+</body>
+</html>
