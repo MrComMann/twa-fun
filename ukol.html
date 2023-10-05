@@ -29,7 +29,7 @@
         }
 
         inp.addEventListener('input', async () => {
-            
+            i++
             msg.innerHTML = 'Ukládání...';
             main.style = 'background-color:red';
             let a = i;
@@ -37,9 +37,6 @@
             if (await help(a)) {
                 msg.innerHTML = 'Uloženo';
                 main.style = 'background-color:green';
-            }
-            else {
-                
             }
             
             
