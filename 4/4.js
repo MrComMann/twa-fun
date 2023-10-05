@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async ()=> {
     const parsed = JSON.parse(data)
     let a = document.getElementById('pp')
     parsed.forEach((e)=> {
-        const div = document.createElement("div")
+        const div = document.createElement("tr")
         div.innerHTML = "<p>"+e.title+"</p><img src='"+e.thumbnailUrl+"'><br><a href='"+e.url+"'>"+e.url+"<a><br><br>"
         a.append(div)
     })
