@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .loader {
+            margin: auto;
+            border: 20px solid #EAF0F6;
+            border-radius: 50%;
+            border-top: 20px solid #FF7A59;
+            width: 200px;
+            height: 200px;
+            animation: spinner 4s linear infinite;
+        }
+
+        @keyframes spinner {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="loader" id="loader"></div>
+    </main>
+    <script src="proc.js"></script>
+</body>
+</html>
