@@ -2,14 +2,14 @@ const URL = "fetch.php"
 
 async function sendPostRequest(url, data) {
     const response = await fetch(url, {
-        method:"POST",
+        method: "POST",
         body: data
     });
     const text = await response.text();
     return text;
 }
 
-document.addEventListener('DOMContentLoaded', async ()=> {
+document.addEventListener('DOMContentLoaded', async () => {
     const data = await sendRequest(URL);
     const parsed = JSON.parse(data)
     let a = document.getElementById('list')
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async ()=> {
 
     document.getElementById('newTodo').addEventListener('submit', async (e) => {
         e.preventDefault()
-        
+
         const text = document.getElementById('text').value
         const datePrim = document.getElementById('date').value
         let date = datePrim.split('-')

@@ -1,11 +1,9 @@
 <?php
-    session_start();
+switch ($_SERVER['request_method']) {
+    case "POST":
 
-    switch ($_REQUEST) {
-        case "POST":
-            
-            break;
-        case "PUT":
-            break;
-    }
+        break;
+    case "PUT":
+        break;
+}
 ?>
