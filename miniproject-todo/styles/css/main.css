@@ -12,11 +12,14 @@ main {
   align-items: center;
 }
 main .wrapper {
-  max-width: 1200px;
+  max-width: 800px;
+  margin: 0 8px;
 }
 
 #header {
-  margin: 16px;
+  margin: 16px 0;
+  width: 100%;
+  text-align: center;
 }
 
 #list .sub {
@@ -42,4 +45,52 @@ main .wrapper {
 }
 #list .sub .open {
   transform: rotate(180deg);
+}
+
+#forms {
+  width: 100%;
+  margin-top: 16px;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 16px;
+}
+#forms form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#forms form div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#forms form div div {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 4px;
+}
+#forms form div div p {
+  color: gray;
+  font-size: 0.8rem;
+}
+#forms form div div input {
+  outline: none;
+  padding: 4px;
+  width: auto;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+#forms form button {
+  margin-top: 16px;
+  background-color: transparent;
+  border: 1px solid black;
+  outline: none;
+  cursor: pointer;
+  padding: 4px 16px;
+  border-radius: 4px;
+}
+#forms form button:hover, #forms form button:focus {
+  background-color: rgba(0, 0, 0, 0.0666666667);
+  transition: 0.3s;
 }/*# sourceMappingURL=main.css.map */

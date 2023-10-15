@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(parsed)
 
     document.getElementById('newTodo').addEventListener('submit', async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const text = document.getElementById('text').value
         const date = document.getElementById('date').value //rrrr-mm-ddThh:mm
@@ -27,5 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const req = await sendRequest(URL, formData, "POST");
         const data = JSON.parse(req)
         console.log(data)
+
+        window.location.reload()
     })
 })

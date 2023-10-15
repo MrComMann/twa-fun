@@ -43,19 +43,24 @@
                     </td>
                 </tr>
             </table>
-            <br>
             <div id="forms">
                 <form id="newTodo">
                     <h3>New task</h3>
-                    <p>Task: <input type="text" id="text" required></p>
-                    <p>Due to: <input type="datetime-local" id="date" required></p>
+                    <div>
+                        <div>
+                            <p>Task: </p>
+                            <input type="text" id="text" required>
+                        </div>
+                        <div>
+                            <p>Until: </p>
+                            <input type="datetime-local" id="date" required>
+                        </div>
+                    </div>
                     <button type="submit">Create</button>
                 </form>
             </div>
         </div>
-
     </main>
-
 </body>
 
 </html>
