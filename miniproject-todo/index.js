@@ -30,16 +30,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     let todoC = 0;
     let finishedC = 0;
     for (let task of parsed) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = "<td>" + task.Task + "</td>"
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('item-wrapper');
+        const taskText = document.createElement('p');
+        taskText.innerText = task.Task
+        wrapper.append(taskText);
+        const actions = document.createElement('div');
+        const btnRemove = document.createElement('button');
+        const btnEdit = document.createElement('button');
+        const btnChange = document.createElement('button');
+        btnRemove.innerText = "Remove"
+        btnRemove.addEventListener('click', () => {
+            console.log('remove')
+        })
+        actions.append(btnRemove);
+        btnEdit.innerText = "Edit"
+        btnEdit.addEventListener('click', () => {
+            console.log('edit')
+        })
+        actions.append(btnEdit);
+        btnChange.innerText = "Change status"
+        btnChange.addEventListener('click', () => {
+            console.log('change status')
+        })
+        actions.append(btnChange);
+        wrapper.append(actions);
         if (task.Status == 1) {
-            todo.append(tr)
+            todo.append(wrapper)
             todoC++
         } else if (task.Status == 2) {
-            active.append(tr)
+            active.append(wrapper)
             activeC++
         } else {
-            done.append(tr)
+            done.append(wrapper)
             finishedC++
         }
     }
@@ -61,5 +84,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         await sendRequest(URL, formData, "POST");
 
         window.location.reload()
+    })
+
+    const activeB = document.getElementById("activeBtn")
+    activeB.addEventListener('click', () => {
+        activeB.classList.toggle('open')
+        active.classList.toggle('closed')
+    })
+    const todoB = document.getElementById("todoBtn")
+    todoB.addEventListener('click', () => {
+        todoB.classList.toggle('open')
+        todo.classList.toggle('closed')
+    })
+    const finishedB = document.getElementById("finishedBtn")
+    finishedB.addEventListener('click', () => {
+        finishedB.classList.toggle('open')
+        active.classList.toggle('closed')
     })
 })

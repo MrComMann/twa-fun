@@ -4,16 +4,21 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 560px;
 }
 main .wrapper {
   max-width: 800px;
-  margin: 0 8px;
+  padding: 8px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 #header {
@@ -22,12 +27,25 @@ main .wrapper {
   text-align: center;
 }
 
+#list {
+  width: 100%;
+  overflow-y: auto;
+}
+#list table {
+  position: sticky;
+  width: 100%;
+}
 #list .sub {
   color: gray;
   font-size: 0.8rem;
 }
+#list .sub td {
+  display: flex;
+}
 #list .sub p {
   margin-top: 16px;
+  padding: 4px 0;
+  margin-right: 16px;
 }
 #list .sub .action {
   margin-top: 16px;
@@ -46,10 +64,65 @@ main .wrapper {
 #list .sub .open {
   transform: rotate(180deg);
 }
+#list .closed {
+  display: none;
+}
+#list .item-wrapper {
+  width: 100%;
+  margin: 4px 0;
+  padding: 8px;
+  border: solid gray 1px;
+  border-radius: 4px;
+}
+#list .item-wrapper .task {
+  display: flex;
+  justify-content: space-between;
+}
+#list .item-wrapper .task button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 1px solid;
+  cursor: pointer;
+  padding: 4px 4px 0 4px;
+  overflow: hidden;
+  outline: none;
+  border-radius: 4px;
+}
+#list .item-wrapper .task form {
+  display: flex;
+  align-items: center;
+}
+#list .item-wrapper .task input {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 1px solid;
+  padding: 4px;
+  overflow: hidden;
+  outline: none;
+  border-radius: 4px;
+}
+#list .item-wrapper .change {
+  display: flex;
+  color: gray;
+  font-size: 0.8rem;
+  align-items: center;
+}
+#list .item-wrapper .change button {
+  color: gray;
+  text-decoration: underline;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  padding: 4px;
+}
 
 #forms {
+  bottom: 0;
   width: 100%;
-  margin-top: 16px;
+  margin-bottom: 16px;
   border: 1px solid black;
   border-radius: 4px;
   padding: 16px;
@@ -80,6 +153,7 @@ main .wrapper {
   width: auto;
   border: 1px solid black;
   border-radius: 4px;
+  width: 270px;
 }
 #forms form button {
   margin-top: 16px;
