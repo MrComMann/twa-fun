@@ -19,6 +19,15 @@ function subInit($id, $count, $btn) {
     }
 }
 
+async function moveTask(status, id) {
+    const formData = new FormData()
+    formData.append("status", status);
+    formData.append("id", id);
+    formData.append('type', 'status');
+    const lol = await sendRequest(URL, formData, "PUT");
+    console.log(lol);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const active = document.getElementById("activeTable")
     const todo = document.getElementById("todoTable")
@@ -30,40 +39,135 @@ document.addEventListener('DOMContentLoaded', async () => {
     let todoC = 0;
     let finishedC = 0;
     for (let task of parsed) {
+
+        /*
+        <div class="item-wrapper">
+            <form class="task">
+                <input type="text" disabled value="xdd">
+                <div>
+                    <button><i class="fa-solid fa-pencil"></i></button>
+                    <button><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </form>
+            <div class="change">
+                <p>Move to: </p>
+                <button>To do</button>
+                <button>Done</button>
+            </div>
+        </div>
+        */
         const wrapper = document.createElement('div');
-        wrapper.classList.add('item-wrapper');
-        const taskText = document.createElement('p');
-        taskText.innerText = task.Task
-        wrapper.append(taskText);
-        const actions = document.createElement('div');
-        const btnRemove = document.createElement('button');
-        const btnEdit = document.createElement('button');
-        const btnChange = document.createElement('button');
-        btnRemove.innerText = "Remove"
-        btnRemove.addEventListener('click', () => {
-            console.log('remove')
+        wrapper.classList.add('item-wrapper')
+        const form = document.createElement('form');
+        form.classList.add('task');
+        const input = document.createElement('input');
+        input.disabled = true;
+        input.type = "text";
+        input.value = task.Task;
+        form.append(input);
+        const btnWrapper = document.createElement('div');
+        const btnLeft = document.createElement('button');
+        btnLeft.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+        btnLeft.value = "edit";
+        btnWrapper.append(btnLeft);
+        const btnRight = document.createElement('button');
+        btnRight.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        btnWrapper.append(btnRight);
+        btnRight.value = "remove";
+        form.append(btnWrapper);
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            switch (e.submitter.value) {
+                case 'remove':
+                    const formDelete = new FormData()
+                    formDelete.append("id", task.ID);
+                    await sendRequest(URL, formDelete, "DELETE");
+                    window.location.reload()
+                    break;
+                case 'edit':
+                    btnLeft.value = "save";
+                    btnLeft.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    btnRight.value = "cancel";
+                    btnRight.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                    input.disabled = false;
+                    break;
+                case "save":
+                    const formData = new FormData()
+                    formData.append("task", input.value);
+                    formData.append("type", 'edit');
+                    await sendRequest(URL, formData, "PUT");
+                    btnLeft.value = "edit";
+                    btnLeft.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+                    btnRight.value = "remove";
+                    btnRight.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                    input.disabled = true;
+                    window.location.reload()
+                    break;
+                case "cancel":
+                    btnLeft.value = "edit";
+                    btnLeft.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+                    btnRight.value = "remove";
+                    btnRight.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                    input.disabled = true;
+                    break;
+            }
         })
-        actions.append(btnRemove);
-        btnEdit.innerText = "Edit"
-        btnEdit.addEventListener('click', () => {
-            console.log('edit')
-        })
-        actions.append(btnEdit);
-        btnChange.innerText = "Change status"
-        btnChange.addEventListener('click', () => {
-            console.log('change status')
-        })
-        actions.append(btnChange);
-        wrapper.append(actions);
+        wrapper.append(form)
+        const change = document.createElement('div');
+        change.classList.add('change');
+        const text = document.createElement('p');
+        text.innerText = "Move to: ";
+        change.append(text);
+        const leftButton = document.createElement('button');
+        const rightButton = document.createElement('button');
         if (task.Status == 1) {
+            leftButton.innerText = "In progress";
+            change.append(leftButton);
+            rightButton.innerText = "Done";
+            change.append(rightButton);
+            wrapper.append(change);
             todo.append(wrapper)
             todoC++
+            leftButton.addEventListener('click', async () => {
+                await moveTask(2, task.ID)
+                //window.location.reload()
+            });
+            rightButton.addEventListener('click', async () => {
+                await moveTask(3, task.ID)
+                //window.location.reload()
+            });
         } else if (task.Status == 2) {
+            leftButton.innerText = "To do";
+            change.append(leftButton);
+            rightButton.innerText = "Done";
+            change.append(rightButton);
+            wrapper.append(change);
             active.append(wrapper)
             activeC++
+            leftButton.addEventListener('click', async () => {
+                await moveTask(1, task.ID)
+                //window.location.reload()
+            });
+            rightButton.addEventListener('click', async () => {
+                await moveTask(3, task.ID)
+                //window.location.reload()
+            });
         } else {
+            leftButton.innerText = "In progress";
+            change.append(leftButton);
+            rightButton.innerText = "To do";
+            change.append(rightButton);
+            wrapper.append(change);
             done.append(wrapper)
             finishedC++
+            leftButton.addEventListener('click', async () => {
+                await moveTask(2, task.ID)
+                //window.location.reload()
+            });
+            rightButton.addEventListener('click', async () => {
+                await moveTask(1, task.ID)
+                //window.location.reload()
+            });
         }
     }
     subInit("activeCount", activeC, "activeBtn");
@@ -99,6 +203,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const finishedB = document.getElementById("finishedBtn")
     finishedB.addEventListener('click', () => {
         finishedB.classList.toggle('open')
-        active.classList.toggle('closed')
+        done.classList.toggle('closed')
     })
 })

@@ -35,9 +35,65 @@ try {
 
         echo json_encode($data);
     } else if ($method === "PUT") {
-        echo json_encode(array("method" => "PUT"));
+        //$put_vars;
+        //parse_str(file_get_contents("php://input"), $put_vars);
+        if (isset($_REQUEST['type'])) {
+            $type = $_REQUEST['type'];
+            if ($type = 'status') {
+                $id = $_REQUEST['id'];
+                $status = $_REQUEST['status'];
+                try {
+                    $stmt = $conn->prepare("UPDATE `d323285_twa`.`TD_tasks` SET `Status` = :statuss WHERE `TD_tasks`.`ID` = :id;");
+                    $stmt->bindParam(':id', $id);
+                    $stmt->bindParam(':statuss', $status);
+                    $stmt->execute();
+                    $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+                    $stmt = null;
+                    $conn = null;
+                    echo json_encode(array("status" => "success"));
+                } catch (PDOException $e) {
+                    echo json_encode(array("status" => "error2"));
+                }
+            } else if ($type = 'edit') {
+                $id = $_REQUEST['id'];
+                $task = $_REQUEST['task'];
+                try {
+                    $stmt = $conn->prepare("UPDATE `d323285_twa`.`TD_tasks` SET `Task` = :edit WHERE `TD_tasks`.`ID` = :id;");
+                    $stmt->bindParam(':id', $id);
+                    $stmt->bindParam(':edit', $task);
+                    $stmt->execute();
+                    $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+                    $stmt = null;
+                    $conn = null;
+                    echo json_encode(array("status" => "success"));
+                } catch (PDOException $e) {
+                    echo json_encode(array("status" => "error2"));
+                }
+            } else {
+                echo json_encode(array("status" => "error1"));
+            }
+        } else {
+            echo json_encode(array("status" => "error0"));
+        }
     } else if ($method === "DELETE") {
-        echo json_encode(array("method" => "DELETE"));
+        $delete_vars;
+        parse_str(file_get_contents("php://input"), $delete_vars);
+        if (isset($delete_vars['id'])) {
+            $id = $delete_vars['id'];
+            try {
+                $stmt = $conn->prepare("DELETE FROM `d323285_twa`.`TD_tasks` WHERE `id` = :id;");
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $data = $stmt->fetchAll(PDO::FETCH_OBJ);
+                $stmt = null;
+                $conn = null;
+                echo json_encode(array("status" => "success"));
+            } catch (PDOException $e) {
+                echo json_encode(array("status" => "error2"));
+            }
+        } else {
+            echo json_encode(array("status" => "error1"));
+        }
     } else if ($method === "GET") {
         try {
             $stmt = $conn->prepare("SELECT * FROM `TD_tasks`");
