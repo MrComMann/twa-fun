@@ -88,6 +88,7 @@ main {
         .task {
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
             button {
                 background-color: transparent;
@@ -108,6 +109,14 @@ main {
 
             }
 
+            div.point {
+                width: 8px;
+                height: 8px;
+                margin-right: 4px;
+                border-radius: 8px;
+                background-color: gray;
+            }
+
             input {
                 background-color: transparent;
                 background-repeat: no-repeat;
@@ -116,7 +125,7 @@ main {
                 padding: 4px 4px 0 4px;
                 overflow: hidden;
                 outline: none;
-                width: calc(100% - 54px);
+                width: calc(100% - 66px);
                 font-size: 1.2rem;
             }
 

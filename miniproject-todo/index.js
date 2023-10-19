@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         wrapper.classList.add('item-wrapper')
         const form = document.createElement('form');
         form.classList.add('task');
+        const point = document.createElement('div');
+        point.classList.add('point');
+        form.append(point);
         const input = document.createElement('input');
         input.disabled = true;
         input.type = "text";
@@ -136,6 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         dateT = dateText[1].split(':');
         date.innerText = dateD[2] + "." + dateD[1] + "." + dateD['0'] + " " + dateT[0] + ":" + dateD[1];
         if (task.Status == 1) {
+            point.style.backgroundColor = "orange";
             leftButton.innerText = "In progress";
             change.append(leftButton);
             rightButton.innerText = "Done";
@@ -154,6 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.location.reload()
             });
         } else if (task.Status == 2) {
+            point.style.backgroundColor = "#73fc03";
             leftButton.innerText = "To do";
             change.append(leftButton);
             rightButton.innerText = "Done";
