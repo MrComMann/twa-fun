@@ -99,7 +99,7 @@ try {
         }
     } else if ($method === "GET") {
         try {
-            $stmt = $conn->prepare("SELECT * FROM `TD_tasks`");
+            $stmt = $conn->prepare("SELECT * FROM `TD_tasks` ORDER BY `TD_tasks`.`Time` ASC");
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_OBJ);
             $stmt = null;
@@ -110,7 +110,6 @@ try {
             echo json_encode(array("status" => "error"));
         }
     }
-
 } catch (PDOException $e) {
     echo "Nelze se připojit k MySQL: ";
     echo $e->getMessage(); //smazat

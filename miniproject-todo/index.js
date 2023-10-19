@@ -30,6 +30,16 @@ async function moveTask(status, id) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const newInput = document.createElement('input');
+    newInput.type = "text"
+    newInput.id = "text";
+    newInput.required = true;
+    document.getElementById('inputInput').append(newInput)
+    const newDate = document.createElement('input');
+    newDate.type = "datetime-local"
+    newDate.id = "date";
+    newDate.required = true;
+    document.getElementById('dateDate').append(newDate)
     const active = document.getElementById("activeTable")
     const todo = document.getElementById("todoTable")
     const done = document.getElementById("doneTable")
@@ -203,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('newTodo').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const text = document.getElementById('text').value
+        var text = document.getElementById('text').value
         let date = document.getElementById('date').value //rrrr-mm-ddThh:mm
         date = date.split("T")
         date = date[0] + " " + date[1] + ":00"
@@ -213,7 +223,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         formData.append("date", date)
         await sendRequest(URL, formData, "POST");
 
-        window.location.reload()
+        text = "";
+        window.location.reload();
     })
 
     const activeB = document.getElementById("activeBtn")
