@@ -49,10 +49,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <button><i class="fa-solid fa-trash"></i></button>
                 </div>
             </form>
-            <div class="change">
-                <p>Move to: </p>
-                <button>To do</button>
-                <button>Done</button>
+            <div class="bottom">
+                <div class="change">
+                    <p>Move to: </p>
+                    <button>To do</button>
+                    <button>Done</button>
+                </div>
+                <p>date</p>
             </div>
         </div>
         */
@@ -81,8 +84,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 case 'remove':
                     const formDelete = new FormData()
                     formDelete.append("id", task.ID);
-                    await sendRequest(URL, formDelete, "DELETE");
-                    window.location.reload()
+                    const lol = await sendRequest(URL, formDelete, "DELETE");
+                    console.log(lol);
+                    //window.location.reload()
                     break;
                 case 'edit':
                     btnLeft.value = "save";
@@ -113,6 +117,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         })
         wrapper.append(form)
+        const bottom = document.createElement('div');
+        bottom.classList.add('bottom');
         const change = document.createElement('div');
         change.classList.add('change');
         const text = document.createElement('p');
@@ -120,12 +126,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         change.append(text);
         const leftButton = document.createElement('button');
         const rightButton = document.createElement('button');
+        const date = document.createElement('p');
+        dateText = task.Time.split(' '); //rrrr-mm-ddThh:mm
+        dateD = dateText[0].split('-');
+        dateT = dateText[1].split(':');
+        date.innerText = dateD[2] + "." + dateD[1] + "." + dateD['0'] + " " + dateT[0] + ":" + dateD[1];
         if (task.Status == 1) {
             leftButton.innerText = "In progress";
             change.append(leftButton);
             rightButton.innerText = "Done";
             change.append(rightButton);
-            wrapper.append(change);
+            bottom.append(change);
+            bottom.append(date);
+            wrapper.append(bottom);
             todo.append(wrapper)
             todoC++
             leftButton.addEventListener('click', async () => {
@@ -141,7 +154,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             change.append(leftButton);
             rightButton.innerText = "Done";
             change.append(rightButton);
-            wrapper.append(change);
+            bottom.append(change);
+            bottom.append(date);
+            wrapper.append(bottom);
             active.append(wrapper)
             activeC++
             leftButton.addEventListener('click', async () => {
@@ -157,7 +172,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             change.append(leftButton);
             rightButton.innerText = "To do";
             change.append(rightButton);
-            wrapper.append(change);
+            bottom.append(change);
+            bottom.append(date);
+            wrapper.append(bottom);
             done.append(wrapper)
             finishedC++
             leftButton.addEventListener('click', async () => {

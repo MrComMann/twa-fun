@@ -130,6 +130,18 @@ main {
             }
         }
 
+        .bottom {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+            p {
+                padding: 4px 4px 0;
+                color: gray;
+                font-size: .8rem;
+            }
+        }
+
         .change {
             display: flex;
             color: gray;

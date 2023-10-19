@@ -111,6 +111,16 @@ main .wrapper {
 #list .item-wrapper .task .edited {
   border-bottom: 1px solid black;
 }
+#list .item-wrapper .bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+#list .item-wrapper .bottom p {
+  padding: 4px 4px 0;
+  color: gray;
+  font-size: 0.8rem;
+}
 #list .item-wrapper .change {
   display: flex;
   color: gray;

@@ -3,6 +3,8 @@ require_once("./db.php");
 $method = $_SERVER['REQUEST_METHOD'];
 header("Content-Type: application/json");
 
+$test = "";
+
 $dsn = "mysql:host=" . $host . ";dbname=" . $dbname . ";port=3306";
 $options = array(
     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
@@ -35,10 +37,16 @@ try {
 
         echo json_encode($data);
     } else if ($method === "PUT") {
-        //$put_vars;
-        //parse_str(file_get_contents("php://input"), $put_vars);
-        if (isset($_REQUEST['type'])) {
-            $type = $_REQUEST['type'];
+        $_PUT = array();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($_PUT));
+        curl_close($ch);
+        parse_str(file_get_contents("php://input"), $_PUT);
+
+        $test = $_PUT;
+        if (isset($_PUT['type'])) {
+            $type = $_PUT['type'];
             if ($type = 'status') {
                 $id = $_REQUEST['id'];
                 $status = $_REQUEST['status'];
@@ -73,13 +81,13 @@ try {
                 echo json_encode(array("status" => "error1"));
             }
         } else {
-            echo json_encode(array("status" => "error0"));
+            echo json_encode(array("status" => "error0", "put" => $_PUT));
         }
     } else if ($method === "DELETE") {
-        $delete_vars;
-        parse_str(file_get_contents("php://input"), $delete_vars);
-        if (isset($delete_vars['id'])) {
-            $id = $delete_vars['id'];
+        //$_DELETE = "";
+        //parse_str(file_get_contents("php://stdin"), $_DELETE);
+        if (isset($_DELETE['id'])) {
+            $id = $_DELETE['id'];
             try {
                 $stmt = $conn->prepare("DELETE FROM `d323285_twa`.`TD_tasks` WHERE `id` = :id;");
                 $stmt->bindParam(':id', $id);
@@ -92,7 +100,7 @@ try {
                 echo json_encode(array("status" => "error2"));
             }
         } else {
-            echo json_encode(array("status" => "error1"));
+            echo json_encode(array("status" => "error1", "request" => $_DELETE));
         }
     } else if ($method === "GET") {
         try {
@@ -102,6 +110,7 @@ try {
             $stmt = null;
             $conn = null;
             echo json_encode($data);
+            exit();
         } catch (PDOException $e) {
             echo json_encode(array("status" => "error"));
         }
@@ -111,5 +120,6 @@ try {
     echo "Nelze se připojit k MySQL: ";
     echo $e->getMessage(); //smazat
 }
-exit();
+var_dump($test);
+//exit();
 ?>
