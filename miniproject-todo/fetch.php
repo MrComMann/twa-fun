@@ -3,8 +3,6 @@ require_once("./db.php");
 $method = $_SERVER['REQUEST_METHOD'];
 header("Content-Type: application/json");
 
-$test = "";
-
 $dsn = "mysql:host=" . $host . ";dbname=" . $dbname . ";port=3306";
 $options = array(
     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
@@ -37,19 +35,14 @@ try {
 
         echo json_encode($data);
     } else if ($method === "PUT") {
-        $_PUT = array();
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($_PUT));
-        curl_close($ch);
-        parse_str(file_get_contents("php://input"), $_PUT);
-
-        $test = $_PUT;
+        $_PUT = file_get_contents("php://input");
+        $_PUT = json_decode($_PUT);
+        $_PUT = (array) $_PUT;
         if (isset($_PUT['type'])) {
             $type = $_PUT['type'];
             if ($type = 'status') {
-                $id = $_REQUEST['id'];
-                $status = $_REQUEST['status'];
+                $id = $_PUT['id'];
+                $status = $_PUT['status'];
                 try {
                     $stmt = $conn->prepare("UPDATE `d323285_twa`.`TD_tasks` SET `Status` = :statuss WHERE `TD_tasks`.`ID` = :id;");
                     $stmt->bindParam(':id', $id);
@@ -63,8 +56,8 @@ try {
                     echo json_encode(array("status" => "error2"));
                 }
             } else if ($type = 'edit') {
-                $id = $_REQUEST['id'];
-                $task = $_REQUEST['task'];
+                $id = $_PUT['id'];
+                $task = $_PUT['task'];
                 try {
                     $stmt = $conn->prepare("UPDATE `d323285_twa`.`TD_tasks` SET `Task` = :edit WHERE `TD_tasks`.`ID` = :id;");
                     $stmt->bindParam(':id', $id);
@@ -81,11 +74,13 @@ try {
                 echo json_encode(array("status" => "error1"));
             }
         } else {
-            echo json_encode(array("status" => "error0", "put" => $_PUT));
+            echo json_encode(array("status" => "error0"));
         }
     } else if ($method === "DELETE") {
-        //$_DELETE = "";
-        //parse_str(file_get_contents("php://stdin"), $_DELETE);
+        $_DELETE = "";
+        $_DELETE = file_get_contents("php://input");
+        $_DELETE = json_decode($_DELETE);
+        $_DELETE = (array) $_DELETE;
         if (isset($_DELETE['id'])) {
             $id = $_DELETE['id'];
             try {
@@ -120,6 +115,5 @@ try {
     echo "Nelze se připojit k MySQL: ";
     echo $e->getMessage(); //smazat
 }
-var_dump($test);
 //exit();
 ?>

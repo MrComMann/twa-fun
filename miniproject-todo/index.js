@@ -20,11 +20,12 @@ function subInit($id, $count, $btn) {
 }
 
 async function moveTask(status, id) {
-    const formData = new FormData()
-    formData.append("status", status);
-    formData.append("id", id);
-    formData.append('type', 'status');
-    const lol = await sendRequest(URL, formData, "PUT");
+    let data = {
+        "status": status,
+        "id": id,
+        'type': 'status'
+    }
+    const lol = await sendRequest(URL, JSON.stringify(data), "PUT");
     console.log(lol);
 }
 
@@ -82,11 +83,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.preventDefault()
             switch (e.submitter.value) {
                 case 'remove':
-                    const formDelete = new FormData()
-                    formDelete.append("id", task.ID);
-                    const lol = await sendRequest(URL, formDelete, "DELETE");
+                    let dataD = {
+                        "id": task.ID
+                    }
+                    const lol = await sendRequest(URL, JSON.stringify(dataD), "DELETE");
                     console.log(lol);
-                    //window.location.reload()
+                    window.location.reload()
                     break;
                 case 'edit':
                     btnLeft.value = "save";
@@ -96,16 +98,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                     input.disabled = false;
                     break;
                 case "save":
-                    const formData = new FormData()
-                    formData.append("task", input.value);
-                    formData.append("type", 'edit');
-                    await sendRequest(URL, formData, "PUT");
+                    let data = {
+                        "task": input.value,
+                        "id": task.ID,
+                        'type': 'edit'
+                    }
+                    await sendRequest(URL, JSON.stringify(data), "PUT");
                     btnLeft.value = "edit";
                     btnLeft.innerHTML = '<i class="fa-solid fa-pencil"></i>';
                     btnRight.value = "remove";
                     btnRight.innerHTML = '<i class="fa-solid fa-trash"></i>';
                     input.disabled = true;
-                    window.location.reload()
+                    //window.location.reload()
                     break;
                 case "cancel":
                     btnLeft.value = "edit";
@@ -143,11 +147,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             todoC++
             leftButton.addEventListener('click', async () => {
                 await moveTask(2, task.ID)
-                //window.location.reload()
+                window.location.reload()
             });
             rightButton.addEventListener('click', async () => {
                 await moveTask(3, task.ID)
-                //window.location.reload()
+                window.location.reload()
             });
         } else if (task.Status == 2) {
             leftButton.innerText = "To do";
@@ -161,11 +165,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             activeC++
             leftButton.addEventListener('click', async () => {
                 await moveTask(1, task.ID)
-                //window.location.reload()
+                window.location.reload()
             });
             rightButton.addEventListener('click', async () => {
                 await moveTask(3, task.ID)
-                //window.location.reload()
+                window.location.reload()
             });
         } else {
             leftButton.innerText = "In progress";
@@ -179,11 +183,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             finishedC++
             leftButton.addEventListener('click', async () => {
                 await moveTask(2, task.ID)
-                //window.location.reload()
+                window.location.reload()
             });
             rightButton.addEventListener('click', async () => {
                 await moveTask(1, task.ID)
-                //window.location.reload()
+                window.location.reload()
             });
         }
     }
