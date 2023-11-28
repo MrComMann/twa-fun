@@ -40,7 +40,7 @@ try {
         $_PUT = (array) $_PUT;
         if (isset($_PUT['type'])) {
             $type = $_PUT['type'];
-            if ($type = 'status') {
+            if ($type = 'status' && isset($_PUT['status'])) {
                 $id = $_PUT['id'];
                 $status = $_PUT['status'];
                 try {
@@ -55,7 +55,7 @@ try {
                 } catch (PDOException $e) {
                     echo json_encode(array("status" => "error2"));
                 }
-            } else if ($type = 'edit') {
+            } else if ($type = 'edit' && isset($_PUT['task'])) {
                 $id = $_PUT['id'];
                 $task = $_PUT['task'];
                 try {
