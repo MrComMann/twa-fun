@@ -11,6 +11,24 @@ const month = date.getMonth();
 const app = express();
 const port = process.env.PORT ?? 3000;
 
+
+app.use(cors(
+    {origin: "http://localhost:8000"}
+), (req, res, next) =>{
+    res.setHeader("Content-type", "application/json");
+    next();
+})
+
+app.use("/user/*", (req, res, next) => {
+    const secret = req.headers.authorization;
+    if (secret == "ABCabc123") {
+        next()
+    } else {
+        res.status(401);
+        res.send(JSON.stringify("Unauthorized!"));
+    }
+})
+
 app.get("/", (req, res) => {
     res.send('Hello world');
 });

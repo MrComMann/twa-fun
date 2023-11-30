@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function sendReq(url, met) {
+            const res = await fetch(url, {method:met, headers: {
+                "authorization": "ABCabc123"
+            }})
+            const text = await res.text()
+            return text;
+        }
+        async function handleClick() {
+            const text = await sendReq('http://localhost:300/test/post', "post");
+            document.getElementById('con').innerHTML = text;
+        }    </script>
+        <style>
+            * {
+                overflow: hidden;
+            }
+            body {
+                display: flex;
+                width: 100vw;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            style {
+                display: block;
+            }
+        </style>
+</head>
+<body>
+    <style contenteditable="true">
+        style {
+
+        }
+        button {
+
+        }
+        div {
+            border:1px solid black;
+        }
+    </style>
+    <button>Send req</button>
+    <div id="con"></div>
+    <br>
+</body>
+</html>
