@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script>
+        async function sendReq(url, method, headers = null, data = null) {
+            const options = { method: method, headers: { "Content-type": "application/json", ...headers } }
+            if (method != "GET" && data != null) options.body = JSON.stringify(data);
+            const res = await fetch(url, options)
+            const text = await res.text()
+            return text;
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault()
+            const username = document.getElementById("username").value
+            const password = document.getElementById("password").value
+            const result = await sendReq('http://localhost:3000/auth/login', "POST", null, { username, password });
+            const token = JSON.parse(result);
+            const finalData = await sendReq("http://localhost:3000/user/card", "GET", { "Authorization": token.token })
+            console.log(finalData)
+        }
+    </script>
+</head>
+
+<body>
+    <form action="" onsubmit="handleSubmit(event)">
+        username:<input type="text" id="username"><br>password<input type="password" id="password"><br>prihlasti
+        se<input type="submit">
+    </form>
+</body>
+
+</html>
